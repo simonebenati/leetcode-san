@@ -1,2 +1,2 @@
 # leetcode-san
-My personal journey on Leetcode.
+My personal (monorepo) journey on Leetcode.
