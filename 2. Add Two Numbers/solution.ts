@@ -21,42 +21,33 @@ class ListNode {
 
 function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
 
-    function goSum(list: ListNode | null): bigint | null {
-
-      const val = String(list?.val)
-
-      if (list?.next === null) {
-        listAddend = BigInt(listAddend + BigInt((val! + '0'.repeat(listNodeSize1))))
-      } else {
-        listAddend = BigInt(listAddend + BigInt((val! + '0'.repeat(listNodeSize1))))
+    function goSum(list: ListNode | null, listNodeSize1 = 0, listAddend: bigint = 0n): bigint | null { 
+      if (list?.next !== null && list?.val !== 0) {
+        listAddend = BigInt(listAddend + BigInt((list?.val! + '0'.repeat(listNodeSize1))))
         listNodeSize1++;
-
-        goSum(list!.next)
+        return goSum(list!.next, listNodeSize1, listAddend)
+      } else if (list?.next !== null && list?.val === 0) {
+        listAddend = BigInt(listAddend + 0n)
+        listNodeSize1++;
+        return goSum(list!.next, listNodeSize1, listAddend)
+      } else {
+        listAddend = BigInt(listAddend + BigInt((list?.val! + '0'.repeat(listNodeSize1))))
+        return listAddend
       }
-      return listAddend
     }
 
-    function createListNode (_plainList: string[]): ListNode | null {
+    function createListNode (lengthOfLists: number): ListNode | null {
+      let l3;
       if ( lengthOfLists > 0 ) {
         lengthOfLists--;
-        l3 = new ListNode(Number(sumOfLists[lengthOfLists]), createListNode(sumOfLists))
+        l3 = new ListNode(Number(sumOfLists[lengthOfLists]), createListNode(lengthOfLists))
       }
       return l3
     }
+    
+    const sumOfLists = (String(BigInt(goSum(l1)! + goSum(l2)!)).split(''))
 
-    let listNodeSize1 = 0;
-    let listAddend = 0n ;
-    let l3;
-
-    const sum1 = goSum(l1)
-    listNodeSize1 = 0;
-    listAddend = 0n;
-    const sum2 = goSum(l2)
-    const sum: bigint =  sum1! + sum2!;
-    const sumOfLists = (String(sum).split(''))
-    let lengthOfLists = Number(sumOfLists.length)
-
-    return createListNode(sumOfLists)
+    return createListNode(Number(sumOfLists.length))
 };
 
 // const l1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))));
