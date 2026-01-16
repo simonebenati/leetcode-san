@@ -21,30 +21,25 @@ var canJump = function(nums) {
         }
         if (arr[x] === 0) {
             x--;
-        } else if (arr[arr[x]+x] === 0) {
+        } else if (arr[arr[x]+x] === 0 || sum > len) {
             arr[x] = arr[x] - 1;
             if (sum+arr[x] === len) {
                 return true
             }
             sum = x;
-        } else if (sum > len) {
-            arr[x] = arr[x] - 1;
-            if (sum+arr[x] === len) {
+        } else if (sum+arr[x] > len) {
                 return true
-            }
-        } else {
-            if (sum+arr[x] > len) {
-                arr[x] = len - sum
-            }
+            } 
+        else {
             sum = sum + arr[x];
-            x = sum
             if (sum === len) {
                 return true
             }
+            x = sum
         }
     }
     
     return false
 };
 
-console.log(canJump([5,9,3,2,1,0,2,3,3,1,0,0]))
+console.log(canJump([3,2,1,0,4]))
