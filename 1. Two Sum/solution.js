@@ -4,7 +4,6 @@
  * @return {number[]}
  */
 var twoSum = function(nums, target) {
-    let goal;
     let object = {};
     for (let x = 0; x < nums.length; ++x) {
         object[target - nums[x]] = x
